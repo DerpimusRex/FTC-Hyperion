@@ -1,2 +1,3 @@
 # HYPERION #24928 repo for INTO THE DEEP
-
+La https://github.com/FIRST-Tech-Challenge/FtcRobotController găsiți ghidul de descărcare și folosire la Android Studio pentru FTC. FtcRobotController conține exemple după care te poți ghida când programezi.
+În TeamCode/src/main/java/org/firstinspires/ftc/teamcode sunt opmodeurile vechi și noi. Recomand să instalați git(https://git-scm.com/) și să folosiți ```git pull https://github.com/DerpimusRex/FTC-Hyperion/``` într-un terminal/consolă pentru a descărca repoul. De asemenea, dacă folosiți comanda anterioară în directorul în care ați descărcat repoul, vor fi updatate toate fișierele cu toate schimbările făcute.
