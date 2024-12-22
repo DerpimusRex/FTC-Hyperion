@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FTC_Into_The_Deep;
+package org.firstinspires.ftc.teamcode.FTC_Into_The_Deep.TeleOP;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -22,19 +22,24 @@ public class FieldOrientedMecanum extends LinearOpMode {
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
-        imu.resetYaw();
+//        imu.resetYaw();
         // Declare our motors
         // Make sure your ID's match your configuration
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("StangaSus");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("StangaJos");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("DreaptaSus");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("DreaptaJos");
-
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // Reverse the right side motors. This may be wrong for your setup.
+
         // If your robot moves backwards when commanded to go forwards,
         // reverse the left side instead.
         // See the note about this earlier on this page.
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 
@@ -58,14 +63,13 @@ public class FieldOrientedMecanum extends LinearOpMode {
             double rotY = x * Math.sin(-botHeading) + y * Math.cos(botHeading);
             double denominator = Math.max(Math.abs(rotY) + Math.abs(x) + Math.abs(rx), 1);
             double frontLeftPower = -(rotY + rotX + rx) / denominator;
-            frontLeftPower = Range.clip(frontLeftPower, -0.7, 0.7);
+            frontLeftPower = Range.clip(frontLeftPower, -1, 1);
             double backLeftPower = -(rotY - rotX + rx) / denominator;
-            backLeftPower = Range.clip(backLeftPower, -0.7, 0.7);
+            backLeftPower = Range.clip(backLeftPower, -1, 1);
             double frontRightPower = -(rotY - rotX - rx) / denominator;
-            frontRightPower = Range.clip(frontRightPower, -0.7, 0.7);
+            frontRightPower = Range.clip(frontRightPower, -1, 1);
             double backRightPower = -(rotY + rotX - rx) / denominator;
-            backRightPower = Range.clip(backRightPower, -0.7, 0.7);
-
+            backRightPower = Range.clip(backRightPower, -1, 1);
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
